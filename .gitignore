@@ -1,0 +1,644 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+ 
+/*
+ *     Text-Based Adventure Game?? ?
+ *     
+ */
+ 
+import java.util.Random;
+import java.util.Scanner;
+public class TextBasedGame {
+	
+	//This is stupid. I'm sorry. -Click
+     
+    // Variables created here can be used anywhere in this class file. They will be set to these values when the program starts.
+     
+	
+    // Variable to keep track of the player's health while the program is running
+    static int playerHealth = 150;
+    static Random random = new Random();
+
+    // Keep track of monsters encountered
+    static String enemyEncountered;
+    
+    //Player's gender
+    static String playerGender;
+     
+    // Keep track of ore that the player found
+    static int ore = 0;
+ 
+    static String playerName = "Steve";
+     
+    // Create a scanner to get what the user types
+    static Scanner input = new Scanner(System.in);
+    static String playerInput;
+    static String playerAnswer;
+    static String teamName = "none";
+    
+    //Keep track of party members
+    static boolean alraphIsRecruited = false;
+    static boolean dephisIsRecruited = false;
+    static boolean alemesIsRecruited = false;
+    static boolean coreisIsRecruited = false;
+    static boolean ariguaIsRecruited = false;
+    //static boolean tralumIsRecruited = false;   Not sure if Tralum even joins, uncomment if yes
+    static boolean aquilaIsRecruited = false;
+     
+    // Store a true of false value to check if the player ran away from the mine
+    static boolean run = false;
+    
+    // Variable for the amount of damage dealt in a fight
+    static int damage = 6;
+    static int phuminDamage = 7;
+    static int alraphDamage = 9;
+    static int dephisDamage;
+    static int alemesDamage;
+    static int coreisDamage;
+    static int ariguaDamage;
+    static int aquilaDamage;
+    static int enemyDamage;
+    
+    //Variable for the amount of speed each character has (Determining who goes first in the battle system)
+    static int speed = 10;
+    static int phuminSpeed = 12;
+    static int alraphSpeed = 12;
+    static int dephisSpeed;
+    static int alemesSpeed;
+    static int coreisSpeed;
+    static int ariguaSpeed;
+    static int aquilaSpeed;
+    static int enemySpeed;
+    
+    //Determine if character has attacked yet
+    static boolean pNAttacked;
+    static boolean PhuminNAttacked;
+    static boolean AlraphNAttacked;
+    static boolean DephisNAttacked;
+    static boolean AlemesNAttacked;
+    static boolean CoreisNAttacked;
+    static boolean AriguaNAttacked;
+    static boolean AquilaNAttacked;
+    static boolean eNAttacked;
+    static boolean fasterThanSonic; //Wow! That's pretty fast. ;)
+    
+    // Variable for the amount of members in party to accurately calculate who is attacked
+    static String attacked;
+    static int whoIsAttacked;
+    static int partyNumber = 2;
+    
+         
+    // Variable for the zombie's health
+    static int enemyHealth = 20;
+     
+    public static void main(String[] args) {
+        // When the program runs, it will start here
+    	
+    	System.out.println("Hello, welcome to a dumb little test of a text-based adventure game I made.");
+    	System.out.println("It uses my own lame Homestuck characters, and yeah.");
+    	System.out.println("This basically happened because I was bored and playing Puzzlestuck.");
+    	System.out.println("Anyways, please enter your player's name.");
+    	playerInput = input.nextLine();
+    	playerName = playerInput;
+
+    	System.out.println("Hello, " + playerName + ". Hopefully you didn't choose a joke name. Next question: What will your player's gender be?");
+    	playerInput = input.nextLine();
+    	playerInput = playerInput.toLowerCase();
+    	playerGender = playerInput;
+   
+    	//Determines player's gender and start game
+    	do {
+    	if(playerGender.contains("male")||(playerGender.contains("female"))){
+    		System.out.println("So " + playerName + "'s gender is " + playerGender + "?");
+    		playerInput = input.nextLine();
+        	playerInput = playerInput.toLowerCase();
+        	playerAnswer = playerInput;
+        	
+        	if(playerAnswer.contains("yes")){
+        		System.out.println("Awesome. Looks like you're ready to begin, then! Good luck!");
+        		break;
+        	} else{
+        		System.out.println("Okay, then what is " + playerName + "'s gender? Male or female?");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        	}
+        	
+    	} else{
+    		System.out.println("I'm sorry, that's not a valid gender here. Please enter either 'male' or 'female'.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerGender = playerInput;
+    	} }
+    	while (playerGender != "male" || playerGender != "female" || playerAnswer != "yes");
+    	
+    	//Beginning text
+    	System.out.println("Since the creation of a new universe, humans and trolls live together in relative harmony. However, this new universe is very expansive.");
+    	System.out.println("Under the command of a new Empress, many adventurers have gone to seek fortune in uncharted territories.");
+    	System.out.println("One such adventurer is you.");
+    	System.out.println();
+    	System.out.println("You are rudely awakened by someone pounding furiously on your door. 'C'mon, " + playerName + "!' They yell. 'Get out of bed already!'");
+    	System.out.println("You have options: ignore them, open door, or curse like a sailor. What will you do?");
+    	playerInput = input.nextLine();
+    	playerInput = playerInput.toLowerCase();
+    	playerAnswer = playerInput;
+    	
+    	//Choose options when meeting Phumin
+    	do{
+    	if(playerAnswer.contains("ignore them")){
+    		System.out.println("You choose to ignore them. However, your door soon bursts open, and an excited yellowblooded troll bounds into the room with a wide grin on their face.");
+    		System.out.println("They appear to be male. He is of moderate height, with horns on the top of his head that almost exactly match the dog ears in front of them.");
+    		System.out.println("He has a tail, too; it is wagging back and forth quickly, reflecting his excitement.");
+    		System.out.println("His outfit matches that of a typical troll's: black t-shirt with his symbol on the front and dark grey jeans. Wrapped around his neck is a yellow and blue-striped scarf.");
+    		System.out.println("He waves enthusiastically. 'Hello, " + playerName + "! My name is Phumin Adahar. It's nice to meet you!'");
+    		System.out.println("You have options: question dog ears and tail, or deck the insolent furry in the face.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    		break;
+    		
+    	} else if(playerAnswer.contains("open door")){
+    		System.out.println("You choose to open the door. You roll out of bed, rubbing at your eyes, and trudge over to the door.");
+    		System.out.println("Upon opening it, an eager-looking yellowblooded troll stands just outside your room. They appear to be male.");
+    		System.out.println("He is of moderate height, with horns on the top of his head that almost exactly match the dog ears in front of them.");
+    		System.out.println("He is grinning widely, and his tail is wagging furiously.");
+    		System.out.println("His outfit is that of a typical troll's: black t-shirt with his symbol on the front and dark grey jeans. Around his neck is a yellow and blue-striped scarf.");
+    		System.out.println("He waves enthusiastically. 'Hello, " + playerName + "! I was wondering when you'd appear. My name is Phumin Adahar. It's nice to meet you!'");
+    		System.out.println("You have options: greet, question dog ears and tail, shut the door.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    		break;
+    		
+    	} else if(playerAnswer.contains("curse like a sailor")){
+    		//Potential variable for friendship points, friendship goes down with this option?
+    		System.out.println("You choose to curse like a sailor. You shout a few choice insults through the door, and get a disappointed whine from the other side.");
+    		System.out.println("'I'm sorry,' you hear. 'I just wanted to know how you were doing...' You hear them open the door quietly and step into your room.");
+    		System.out.println("Before you stands a male, yellowblooded troll. His horns are on the top of his head and match the dog ears in front of them. His ears are flattened.");
+    		System.out.println("He has a drooping tail, and wears a black t-shirt with his symbol on the front. Around his neck is a yellow and blue-striped scarf.");
+    		System.out.println("He brings his gaze up from the floor to meet your eyes. 'We're going to be leaving soon,' he says. 'I'm Phumin Adahar. Nice to meet you.'");
+    		System.out.println("You have options: apologize, question dog ears and tail.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    		break;
+    		
+    	} else{
+    		System.out.println("Please choose one of the available options.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    	}
+    	} while (playerAnswer != "ignore them" || playerAnswer != "open door" || playerAnswer != "curse like a sailor");
+        
+    	//Choose options and move on
+    	do{
+    		if(playerAnswer.contains("question dog ears and tail")){
+    			System.out.println("You choose to question his dog ears and tail. Phumin looks down at himself, like he didn't even notice. 'Oh,' he says. 'It's... A long story.'");
+    			System.out.println("He looks back up and smiles. 'Anyways, we should get going. We need to get breakfast and find some people to go on adventures with!'");
+    			System.out.println("You have options: question 'we', or follow Phumin.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if(playerAnswer.contains("deck the insolent furry in the face")){
+    			System.out.println("You give Phumin a good hard blow. He takes a step back, cradling the injury looking stunned and hurt. 'What was that for?' He whimpers.");
+    			System.out.println("His tail droops. 'I'm sorry if I was being rude. I was just excited to meet you...' He gives you a rather pitiful look.");
+    			System.out.println("'I came here to get you and bring you to breakfast. After that, we need to find some people to explore with.'");
+    			System.out.println("You have options: apologize and follow Phumin, or question 'we'.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if(playerAnswer.contains("greet")){
+    			System.out.println("You choose to greet the cheery troll. He smiles and looks excited, his tail wagging even more now.");
+    			System.out.println("'So, " +playerName+ "! Let's go get some breakfast before they run out of food.'");
+    			System.out.println("'After that, we can look for people who you think would be fun to go on adventures with! I can't wait!'");
+    			System.out.println("You have options: follow Phumin, or question 'we'.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if (playerAnswer.contains("shut the door")){
+    			System.out.println("You choose to shut the door on the overenthusiastic furry. However, before you can get it closed, he catches it and holds it open.");
+    			System.out.println("'" + playerName + ", you can't just go back to sleep! C'mon, we need to get breakfast.'");
+    			System.out.println("'After breakfast, we can go find people to join us on some adventures. Let's get going already!'");
+    			System.out.println("You have options: follow Phumin, or question 'we'.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if (playerAnswer.contains("apologize")){
+    			System.out.println("You choose to apologize to the dejected troll. He accepts your apology with a small nod, and appears to brighten a little.");
+    			System.out.println("'I came to get you for breakfast. After that, we should look for people who we might want to partner up with for adventures.'");
+    			System.out.println("You have options: follow Phumin, or question 'we'.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else{
+    			System.out.println("Please choose one of the available options.");
+    			playerInput = input.nextLine();
+    			playerInput = playerInput.toLowerCase();
+    			playerAnswer = playerInput;
+    		}
+    	} while (playerAnswer != "follow phumin" || playerAnswer != "question 'we'");
+    	
+    	//Choose options, go to breakfast or delay slightly
+    	do{
+    		if(playerInput.contains("follow phumin")){
+    			System.out.println("You choose to follow Phumin. He leads you out of your room and down several hallways, finally stopping at some large double doors.");
+    			System.out.println("'The mess hall is in here,' Phumin tells you. The large room is filled with tables, chairs, and a varied mix of humans and trolls of all types.");
+    			System.out.println("'Once we finish eating, we should have a look around and see if anyone would like to join us!' He leads you to a table and sits down.");
+    			System.out.println("When the two of you are finished with breakfast, you glance around. There are several trolls gathered at a table nearby.");
+    			System.out.println("Phumin is also scanning the room. He turns to you. 'So, do you want to find someone to join us, or should I look? I'm fine with either.'");
+    			System.out.println("You have options: investigate other table, or let Phumin look. (Note! Phumin will randomly pick someone for you.)");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if(playerInput.contains("question 'we'")) {
+    			System.out.println("You choose to question Phumin's use of 'we'. He blinks, suprised, then smiles. 'Oh, didn't you know? We're going to be in the same group.'");
+    			System.out.println("He continues: 'We're going to be an awesome team, I'm sure. Anyways, we should get to breakfast before the food's all gone.'");
+    			System.out.println("He leads you out of your room and down several hallways, finally stopping at some large double doors.");
+    			System.out.println("'The mess hall is in here,' Phumin tells you. The large room is filled with tables, chairs, and a varied mix of humans and trolls of all types.");
+    			System.out.println("'Once we finish eating, we should have a look around and see if anyone would like to join us!' He leads you to a table and sits down.");
+    			System.out.println("When the two of you are finished with breakfast, you glance around. There are several trolls gathered at a table nearby.");
+    			System.out.println("Phumin is also scanning the room. He turns to you. 'So, do you want to find someone to join us, or should I look? I'm fine with either.'");
+    			System.out.println("You have options: investigate other table, or let Phumin look. (Note! Phumin will randomly pick someone for you.)");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else{
+    			System.out.println("Please choose one of the available options.");
+    			playerInput = input.nextLine();
+    			playerInput = playerInput.toLowerCase();
+    			playerAnswer = playerInput;
+    		}
+    	} while (playerAnswer != "investigate other table" || playerAnswer != "let phumin look");
+    	
+    	//Choose between Dephis or Alraph
+    	do{
+    		if(playerInput.contains("investigate other table")){
+    			System.out.println("You choose to investigate the other table yourself. When you approach, one of them stands up and waves, grinning broadly.");
+    			System.out.println("They're a seadweller, as you can see by the color of their symbol and the fins on either side of their face.");
+    			System.out.println("The other trolls eye you with varying degrees of interest. The one standing, who's clearly female, greets you enthusiastically.");
+    			System.out.println("'Shello there!' She says. 'My name's Dephis Tornev. Anyfin I can do for you?' You nod and explain your situation; they seem friendly.");
+    			System.out.println("Dephis appears to think over your request for a moment. 'Hmm... Alright. Maybe one of us can shellp!' She turns to the other trolls.");
+    			System.out.println("'Hey, introduce yourshellves! Don't be rude.' A female brownblood waves from her seat. 'I'm Alemes Shiral. Nice to meet you.'");
+    			System.out.println("The next troll, a male jadeblood, appears to be busy sharpening a scythe, which must be his weapon of choice. He glances up.");
+    			System.out.println("'Alraph Erione,' he says disinterestedly. The final troll, a male purpleblood, is eyeing you with interest. He pauses.");
+    			System.out.println("'My name'sss Arigua.' 'Raxith,' Dephis adds. He gives her a look and continues with a sly grin: 'You ssseem pretty interesssting, huh?'");
+    			System.out.println("'Thut up, Arigua,' Alraph interjects. You note their odd speech mannerisms, then turn your attention back to Dephis.");
+    			System.out.println("'Anyways, that's our motley school! I know I don't have anywhere I need to be, and I'm pretty shore Alraph's free, too.'");
+    			System.out.println("The jadeblood shoots her a dirty look, confirming her statement. 'So,' Dephis continues, ignoring him, 'Who do you want to tag along?'");
+    			System.out.println("You have options: recruit Alraph, or recruit Dephis.");
+        		playerInput = input.nextLine();
+        		playerInput = playerInput.toLowerCase();
+        		playerAnswer = playerInput;
+        		break;
+        		
+    		} else if(playerAnswer.contains("let phumin look")){
+    			System.out.println("You choose to let Phumin look around the tables. He walks off, and you wait.");
+    			System.out.println("Soon, he comes back, another troll trailing behind him. 'One of my friends,' he tells you.");
+    			System.out.println("(Hit enter to continue.)");
+    			input.nextLine();
+    		    int randomizer = random.nextInt(3-1)+1;
+    		    	if(randomizer==2){
+    		    		playerAnswer = "phumin recruits dephis";
+    		    		dephisIsRecruited = true;
+    		    		partyNumber = 3;
+    		    		break;
+    		    	} else{
+    		    		playerAnswer = "phumin recruits alraph";
+    		    		alraphIsRecruited = true;
+    		    		partyNumber = 3;
+    		    		break;
+    		    	}
+    			
+    		} else{
+    			System.out.println("Please choose one of the available options.");
+    			playerInput = input.nextLine();
+    			playerInput = playerInput.toLowerCase();
+    			playerAnswer = playerInput;
+    		}
+    	} while (playerAnswer != "recruit alraph" || playerAnswer != "recruit dephis");
+    	
+    	//Have Alraph or Dephis join your team and choose a team name
+    	do{
+    	if(playerInput.contains("recruit alraph")){
+    		System.out.println("You choose to have Alraph join your team. He looks mildly surprised by your decision, then returns to his default bored expression. He stands up.");
+    		System.out.println("He's a little taller than Phumin, with slightly feminine curves to his body. Like the other trolls, he wears a black t-shirt and dark grey jeans.");
+    		System.out.println("His left horn is shaped like a backwards 3, and his right is like a b but separated into one tall horn and a second, much smaller one.");
+    		System.out.println("Some of his sharp teeth peek out from under his upper lip. Judging by his solid heterochromatic eyes, he looks like a psionic. One is black, the other blue.");
+    		System.out.println("He adjusts his glasses and puts down his scythe. 'Hi,' he says unenthusiastically. 'So where are we going?' You note that his lisp is inconsistent.");
+    		System.out.println("You lead him back to Phumin. The yellowblood greets him happily. 'Hi, Alraph!' He explains: 'I know him and the other trolls you probably saw.'");
+    		System.out.println("Phumin looks excited. 'So, now that we have our team, do you have any names?' Alraph looks unimpressed. 'You mean you don't have one yet?'");
+    		System.out.println("Phumin waves him off and turns to you. 'You have an idea, right? Let's hear it!' (Enter a name for your team.)");
+    		alraphIsRecruited = true;
+    		partyNumber = 3;
+    		playerInput = input.nextLine();
+    		teamName = playerInput;
+    		break;
+    		
+    	} else if(playerAnswer.contains("recruit dephis")){
+    		System.out.println("You choose to have Dephis join your team. She grins broadly, revealing a full set of sharp teeth. 'Awesome! I've got a good feeling about you, ya know?'");
+    		System.out.println("You survey your new team member. She's tall and thin, with simple r-shaped horns that face in opposite directions.");
+    		System.out.println("She's dressed in the typical troll clothes, her symbol marked on the front of her shirt in her blood color, violet. Her fins are fluttering slightly.");
+    		System.out.println("Dephis follows you back to Phumin. The two greet each other, explaining that they're well acquainted already.");
+    		System.out.println("Phumin turns to you, excited. 'So, now that we have our team, got any names in mind?' Dephis cuts in. 'Ooh, names? I'm good with names! Let me sea...'");
+    		System.out.println("Phumin waves her off. 'Let's have " + playerName + " choose the team name.' Dephis looks disappointed, but yields. 'Fiiine. What ideas have you caught?'");
+    		System.out.println("(Enter a name for your team.)");
+    		dephisIsRecruited = true;
+    		partyNumber = 3;
+    		playerInput = input.nextLine();
+    		teamName = playerInput;
+    		break;
+    		
+    	} else if(playerAnswer.contains("phumin recruits alraph")){
+    		System.out.println("The troll following Phumin is a jadeblood, as apparent from the color of the symbol on the front of his shirt. He waves at you somewhat unenthusiastically.");
+    		System.out.println("He's a little taller than Phumin, with slightly feminine curves to his body. Like the other trolls, he wears a black t-shirt and dark grey jeans.");
+    		System.out.println("His left horn is shaped like a backwards 3, and his right is like a b but separated into one tall horn and a second, much smaller one.");
+    		System.out.println("Some of his sharp teeth peek out from under his upper lip. Judging by his solid heterochromatic eyes, he looks like a psionic. One is black, the other blue.");
+    		System.out.println("Phumin pushes him forwards. 'This is Alraph,' he announces. 'He has a funny lisp sometimes, but he's pretty good with a scythe.'");
+    		System.out.println("Alraph gives the yellowblood a withering glare. 'It ithn't funny,' he sniffs. He then turns to you. '...Nice to meet you, I guess.'");
+    		System.out.println("Phumin looks excited. 'So, now that we have our team, do you have any names?' Alraph looks unimpressed. 'You mean you don't have one yet?'");
+    		System.out.println("Phumin waves him off and turns to you. 'You have an idea, right? Let's hear it!' (Enter a name for your team.)");
+    		playerInput = input.nextLine();
+    		teamName = playerInput;
+    		break;
+    		
+    	} else if (playerAnswer.contains("phumin recruits dephis")){
+    		System.out.println("The troll following Phumin is a violetblood, meaning she's a seadweller. When she catches sight of you, she lights up and appears to ask Phumin something.");
+    		System.out.println("You survey your new team member. She's tall and thin, with simple r-shaped horns that face in opposite directions.");
+    		System.out.println("She's dressed in the typical troll clothes, her symbol marked on the front of her shirt in her blood color. Her fins are fluttering slightly.");
+    		System.out.println("She bounds over, grinning widely. 'Hi, I'm Dephis! Who are you? I'm so excited to join you two!' Phumin catches up and tugs her back.");
+    		System.out.println("'Hey, personal space. ...Dephis, this is " + playerName + ". " + playerName + ", Dephis.' The seadweller nods and shakes your hand enthusiastically.");
+    		System.out.println("Phumin leans in close and whispers, 'Besides the fish puns, she's pretty great. She's a good fighter, too.' Dephis joins you. 'I like whispering too!'");
+    		System.out.println("Phumin turns to you, excited. 'So, now that we have our team, got any names in mind?' Dephis cuts in. 'Ooh, names? I'm good with names! Let me sea...'");
+    		System.out.println("Phumin waves her off. 'Let's have " + playerName + " choose the team name.' Dephis looks disappointed, but yields. 'Fiiine. What ideas have you caught?'");
+    		System.out.println("(Enter a name for your team.)");
+    		playerInput = input.nextLine();
+    		teamName = playerInput;
+    		break;
+    		
+    	} else{
+    		System.out.println("Please choose one of the available options.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    	}
+    	} while(playerInput != "recruit alraph" || playerInput != "recruit dephis");
+    	
+    //Confirm team name with Dephis or Alraph
+    do{
+    	if(dephisIsRecruited){
+    		System.out.println("'So... You think "+ teamName + " should be our team's name?' Phumin asks. Dephis grins. 'I think it sounds great!'");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    		
+    		if(playerAnswer.contains("yes")){
+    		System.out.println("Phumin nods. 'That's it, then! Our team will be " + teamName + ", then.' His tail is wagging again. Dephis cheers.");
+    		break;
+    		
+    		} else{
+    		System.out.println("Phumin looks mildly confused, and Dephis appears a little disappointed. 'Okay then,' he says. 'What do you suggest?");
+    		playerInput = input.nextLine();
+    		teamName = playerInput;
+    		}
+    		
+    	//Alraph's dialogue
+    	} else{
+    		System.out.println("'So... You think " + teamName + " should be our team's name?' Phumin asks. Alraph just shrugs. 'As long as it ithn't thomething dumb,' he mutters.");
+    		playerInput = input.nextLine();
+    		playerInput = playerInput.toLowerCase();
+    		playerAnswer = playerInput;
+    		
+    		if(playerAnswer.contains("yes")){
+        		System.out.println("Phumin nods. 'That's it, then! Our team will be " + teamName + ".' His tail is wagging again. Alraph shrugs and allows a small smile. 'Thure.'");
+        		break;
+        		
+        		} else{
+        		System.out.println("Alraph appears a little irritated by your indecision, though he says nothing, and Phumin looks confused.");
+        		System.out.println("'Okay then,' he says. 'What do you suggest?");
+        		playerInput = input.nextLine();
+        		teamName = playerInput;
+        		
+        		}
+    	}
+    	} while (playerAnswer != "yes" || playerAnswer != "no");
+    
+    //This is inefficient but I don't care, cue the super long if/else statement
+    //(If you don't get what I'm doing here, which you probably don't, this is going to split into two really lengthy almost identical if/else statements until you finally have both Alraph and Dephis on your team. Inefficient and annoying, I know, but I'm working with the knowledge I've got.
+    if(dephisIsRecruited){
+    	System.out.println("Phumin suddenly jumps up from the table. 'Alright, " +teamName+ "! Let's find somewhere to explore and get going already!'");
+    	System.out.println("Dephis lets out another cheer, jumping up as well. You follow their lead. Phumin is already running over to a large map on the wall.");
+    	System.out.println("Upon closer examination, there appear to be many areas to explore. You are on a large continent in the middle of the sea.");
+    	System.out.println("There is a diverse selection of climates, along with much uncharted territory. Countless small islands surround the continent.");
+    	System.out.println("'Looks like we've got a lot to choose from,' Phumin says thoughtfully. He's tracing lines on the map with one finger, apparently thinking.");
+    	System.out.println("Dephis taps an intimidating-looking range of mountains. 'I hear there are some pretty awful monsters around. The ones here might be a bit much, even for me.'");
+    	System.out.println("Phumin indicates a forest nearby. 'Since this is our first time, we should start here, in Mirabilis Forest. Then we can go further!'");
+    	System.out.println("The two practically drag you out of the main hall. 'C'mon, let's go!' Dephis says. 'We'll teach you how to fight and everything there!'");
+    	System.out.println("(Hit enter to continue.)");
+    	
+    	input.nextLine();
+    	
+    	System.out.println("That's all for now, lol");
+    	System.out.println("I need to figure out calling functions to make the battle system easier since I'm lame and haven't done that yet");
+    	System.out.println("jk lol just recruit Alraph instead, I've been muddling around with a battle system there");
+    	
+    //Alraph's Dialogue
+    }else{
+    	System.out.println("'So, " +teamName+ "! Let's find somewhere to go on our first adventure.' Phumin gets up from the table and heads over to a large map on the wall.");
+    	System.out.println("Alraph glances at you, then gets up and saunters over. You follow him. Phumin's already examining it thoroughly, apparently deep in thought.");
+    	System.out.println("Upon closer examination, there appear to be many areas to explore. You are on a large continent in the middle of the sea.");
+    	System.out.println("There is a diverse selection of climates, along with much uncharted territory. Countless small islands surround the continent.");
+    	System.out.println("'Looks like we've got a lot to choose from,' Phumin says thoughtfully. He's tracing lines on the map with one finger.");
+    	System.out.println("'We shouldn't go anywhere too dangerouth, especially if it'th " +playerName+ "'s first time exploring,' Alraph reminds him, nodding at you.");
+    	System.out.println("Phumin nods. 'I know. ...Ooh!' He suddenly exclaims. 'What about Mirabilis Forest? That's nearby, too.' He's pointing to a forest near your location.");
+    	System.out.println("'Sure. That'th a good plathe to start.' Alraph agrees, then turns to you. 'Let's get going, then, I gueth. Don't worry, we'll teach you how to fight.'");
+    	System.out.println("(Hit enter to continue.)");
+    	
+    	input.nextLine();
+    	
+    	System.out.println("That's all for now, lol");
+    	System.out.println("I need to figure out calling functions to make the battle system easier since I'm lame and haven't done that yet");
+    	//I'm just going to try this and fail miserably
+    	System.out.println();
+    	System.out.println("I'm just going to try this and fail miserably");
+    	System.out.println("Ok so");
+    	System.out.println("The next day, you arrive at Mirabilis Forest with Alraph and Phumin. The yellowblood bounds down the path ahead of you, a wide smile on his face and tail wagging.");
+    	System.out.println("'I love being outside,' Phumin comments when you and Alraph catch up to him. The jadeblood has been looking around cautiously the whole time, as if something will jump out.");
+    	System.out.println("He rolls his eyes, or you assume he does, because you can't tell with how his eyes are. 'I noticed. Jutht be careful. If you go too far ahead and lose us, I'm not looking.'");
+    	System.out.println("Phumin looks disappointed. '...Fine. Anyways, we should look for some enemies! That IS why we came out here, after all.' Alraph nods, and the three of you keep going.");
+    	System.out.println("Suddenly, the bushes by the side of the path rustle. Alraph uncaptchalogues his scythe, and Phumin crouches low on the ground, ready to pounce.");
+    	System.out.println("'That wath convenient,' Alraph comments, and then the enemy steps out.");
+    	System.out.println("(Hit enter to continue.)");
+    	
+    	input.nextLine();
+    	
+    	System.out.println("You encounter a wild slime!");
+    	enemyEncountered = "slime";
+    	enemyDamage = 6;
+    	enemySpeed = 6;
+    	System.out.println("What will you do? (fight, item, run)");
+    	System.out.println("Phumin suddenly jumps in. 'Alright! Let's see here. So you can either fight, use an item, or run, as you can see.'");
+    	System.out.println("'I think it's pretty obvious what everything does, so let's get to it already! Choose to fight.' He grins encouragingly.");
+    	playerInput = input.nextLine();
+    	playerInput = playerInput.toLowerCase();
+    	playerAnswer = playerInput;
+    	
+    	do{
+    		
+    		if(playerAnswer.contains("fight")){
+    			pNAttacked = true;
+    			AlraphNAttacked = true;
+    			PhuminNAttacked = true;
+    			System.out.println("You choose to fight.");
+    			
+    			if(enemySpeed > speed || enemySpeed > phuminSpeed || enemySpeed > alraphSpeed){
+    				System.out.println("The " +enemyEncountered+ " now has " +enemyHealth+ " HP left.");
+    				int enemydamage = random.nextInt(enemyDamage)+3;
+    				enemyDamage = enemydamage;
+    				int isattacked = random.nextInt(partyNumber);
+    				whoIsAttacked = isattacked;
+    				if(whoIsAttacked == 0){
+    					attacked = playerName;
+    				} else if(whoIsAttacked == 1){
+    					attacked = "Alraph";
+    				} else if(whoIsAttacked == 2){
+    					attacked = "Phumin";
+    				}
+    				
+    				System.out.println("The " +enemyEncountered+ " attacks and does " +enemyDamage+ " damage to " +attacked+ ".");
+    			}
+    			int randomizer = random.nextInt(damage)+3;
+    			damage = randomizer;
+    			System.out.println("You deal " + damage + " damage to the " + enemyEncountered + ".");
+    			enemyHealth = enemyHealth - damage;
+    			
+    			if(enemyHealth > 0){
+    				System.out.println("The " + enemyEncountered + " now has " + enemyHealth + " HP left.");
+    				System.out.println("Phumin grins encouragingly. 'Nice hit!'");
+    				int alraphdamage = random.nextInt(alraphDamage)+3;
+    				alraphDamage = alraphdamage;
+    				System.out.println("Alraph deals " + alraphDamage + " damage to the " + enemyEncountered + ".");
+    				enemyHealth = enemyHealth - alraphDamage;
+    			} else{
+    				System.out.println("Enemy " + enemyEncountered + " defeated!");
+    				break;
+    			}
+    			
+    			if(enemyHealth > 0){
+    				System.out.println("The " + enemyEncountered + " now has " + enemyHealth + " HP left.");
+    				int phumindamage = random.nextInt(phuminDamage)+3;
+    				phuminDamage = phumindamage;
+    				System.out.println("Phumin deals " + phuminDamage + " damage to the " + enemyEncountered + ".");
+    				enemyHealth = enemyHealth - phuminDamage;
+    				
+    			} else{
+    				System.out.println("Enemy " + enemyEncountered + " defeated!");
+    				break;
+    			}
+    			
+    			if(enemyHealth > 0){
+    				System.out.println("The " +enemyEncountered+ " now has " +enemyHealth+ " HP left.");
+    				int enemydamage = random.nextInt(enemyDamage)+3;
+    				enemyDamage = enemydamage;
+    				int isattacked = random.nextInt(partyNumber);
+    				whoIsAttacked = isattacked;
+    				if(whoIsAttacked == 0){
+    					attacked = playerName;
+    				} else if(whoIsAttacked == 1){
+    					attacked = "Alraph";
+    				} else if(whoIsAttacked == 2){
+    					attacked = "Phumin";
+    				}
+    				
+    				System.out.println("The " +enemyEncountered+ " attacks and does " +enemyDamage+ " damage to " +attacked+ ".");
+    			} else{
+    				System.out.println("Enemy " +enemyEncountered+ " defeated!");
+    				break;
+    			}
+    			System.out.println("'Great job!' Phumin cheers. 'Okay, next up are our items. You can use these to heal up when things start looking bad!'");
+    			System.out.println("'Go ahead and hit 'items'. Let's see what we've got!'");
+    			playerInput = input.nextLine();
+    			playerInput = playerInput.toLowerCase();
+    			playerAnswer = playerInput;
+    			
+    		} else{
+    			System.out.println("Phumin shakes his head. 'No, no! Choose fight for now. Don't worry, we'll get to the other stuff soon.'");
+    			playerInput = input.nextLine();
+    			playerInput = playerInput.toLowerCase();
+    			playerAnswer = playerInput;
+    		}
+    		
+    		//I'm stopping here because this is lame and the item system is actually going to kill me but alrighty
+    		
+    	}while(playerHealth > 0 && !run || enemyHealth > 0);
+    	
+    }
+
+    //I pretty much made this entire thing using my own extremely basic and rough knowledge of Java and this little basic program here. ...Yeaaah.
+    //I actually DID build on the below program and made a battling/leveling system, but I lost it like an IDIOT so I've just been doing this from scratch hahahaha whoops
+    
+    	/* Run until player dies or runs away.
+        while(playerHealth > 0 && !run){
+             
+            // Find some ore in the mines.
+            int oreFound = 5;
+            System.out.println(playerName +" found " + oreFound + " ore.");
+             
+            ore += oreFound;  // Give the player ore found
+            System.out.println(playerName +" has " + ore + " total ore.");
+             
+            //Ask if the player wants to keep searching for ore.
+            System.out.println("Keep searching for ore? (yes, no)");
+            playerInput = input.nextLine();
+            playerInput = playerInput.toLowerCase();
+             
+            // if the player says anything other than yes, stop.
+            if(!playerInput.contains("yes")){
+                run = true;
+                break;
+            }
+             
+        }
+        
+         
+        System.out.println(playerName + " runs out of the mine.");
+        System.out.println(playerName + " made it out of the mine with " + ore + " ore.");
+         */
+    }
+ 
+}
+
